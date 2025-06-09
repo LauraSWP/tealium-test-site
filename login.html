@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Tealium Test Site</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Tealium Universal Data Object -->
+    <script type="text/javascript">
+        var utag_data = {
+            "tealium_event": "page_view",
+            "page_type": "login",
+            "page_name": "Login - Tealium Test Site",
+            "site_section": "auth",
+            "site_language": "en",
+            "country_code": "US",
+            "currency_code": "USD",
+            "customer_type": "guest",
+            "page_category": "authentication",
+            "content_type": "login_page",
+            "cart_total_items": "0",
+            "cart_total_value": "0.00",
+            "user_id": "",
+            "is_logged_in": "0",
+            "has_newsletter_subscription": "0"
+        };
+    </script>
+
+    <!-- Tealium Universal Tag -->
+    <script type="text/javascript">
+        (function(a,b,c,d) {
+            a='//tags.tiqcdn.com/utag/success-laura-solanes/dog-food/qa/utag.js';
+            b=document;c='script';d=b.createElement(c);d.src=a;
+            d.type='text/java'+c;d.async=true;
+            a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a)
+        })();
+    </script>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🐕 Tealium Test Site</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="products.html" class="nav-link">Products</a></li>
+                <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
+                <li class="nav-item"><a href="cart.html" class="nav-link">Cart</a></li>
+                <li class="nav-item"><a href="checkout.html" class="nav-link">Checkout</a></li>
+                <li class="nav-item"><a href="login.html" class="nav-link active">Login</a></li>
+                <li class="nav-item"><a href="consent.html" class="nav-link">Consent</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Login/Logout Toggle Section -->
+            <section id="auth-section" class="auth-section">
+                <!-- Login Form (shown when not logged in) -->
+                <div id="login-container" class="auth-container">
+                    <div class="auth-card">
+                        <h1>Sign In to Your Account</h1>
+                        <p>Access your personalized experience and tracking data</p>
+                        
+                        <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required placeholder="Enter your email">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required placeholder="Enter your password">
+                            </div>
+                            
+                            <div class="form-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="remember-me" name="remember">
+                                    Remember me
+                                </label>
+                                <a href="#" onclick="handleForgotPassword()" class="forgot-link">Forgot password?</a>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-large">Sign In</button>
+                        </form>
+                        
+                        <div class="social-login">
+                            <p>Or sign in with:</p>
+                            <div class="social-buttons">
+                                <button onclick="handleSocialLogin('google')" class="btn social-btn google">Google</button>
+                                <button onclick="handleSocialLogin('facebook')" class="btn social-btn facebook">Facebook</button>
+                                <button onclick="handleSocialLogin('twitter')" class="btn social-btn twitter">Twitter</button>
+                            </div>
+                        </div>
+                        
+                        <div class="signup-link">
+                            <p>Don't have an account? <a href="#" onclick="showSignupForm()">Create one here</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logged In Dashboard (shown when logged in) -->
+                <div id="dashboard-container" class="auth-container" style="display: none;">
+                    <div class="auth-card">
+                        <h1>Welcome Back, <span id="user-name">User</span>!</h1>
+                        <p>You are successfully logged in to your account</p>
+                        
+                        <div class="user-info">
+                            <div class="info-row">
+                                <span class="label">User ID:</span>
+                                <span id="display-user-id">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Email:</span>
+                                <span id="display-email">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Account Type:</span>
+                                <span id="display-account-type">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Last Login:</span>
+                                <span id="display-last-login">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-actions">
+                            <button onclick="updateProfile()" class="btn btn-secondary">Update Profile</button>
+                            <button onclick="viewOrderHistory()" class="btn btn-secondary">Order History</button>
+                            <button onclick="managePreferences()" class="btn btn-secondary">Preferences</button>
+                            <button onclick="handleLogout()" class="btn btn-tertiary">Sign Out</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Signup Form (hidden by default) -->
+                <div id="signup-container" class="auth-container" style="display: none;">
+                    <div class="auth-card">
+                        <h1>Create Your Account</h1>
+                        <p>Join us and start tracking your analytics journey</p>
+                        
+                        <form id="signup-form" class="auth-form" onsubmit="handleSignup(event)">
+                            <div class="form-group">
+                                <label for="signup-name">Full Name</label>
+                                <input type="text" id="signup-name" name="name" required placeholder="Enter your full name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="signup-email">Email Address</label>
+                                <input type="email" id="signup-email" name="email" required placeholder="Enter your email">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="signup-password">Password</label>
+                                <input type="password" id="signup-password" name="password" required placeholder="Create a password">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="account-type">Account Type</label>
+                                <select id="account-type" name="accountType" required>
+                                    <option value="">Select account type</option>
+                                    <option value="personal">Personal</option>
+                                    <option value="business">Business</option>
+                                    <option value="enterprise">Enterprise</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="agree-terms" name="terms" required>
+                                    I agree to the <a href="#" onclick="trackPrivacyLinkClick('terms')">Terms of Service</a>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="marketing-emails" name="marketing">
+                                    Send me marketing emails
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-large">Create Account</button>
+                        </form>
+                        
+                        <div class="signin-link">
+                            <p>Already have an account? <a href="#" onclick="showLoginForm()">Sign in here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Authentication Testing Controls -->
+            <section class="testing-controls">
+                <h2>Authentication Testing Controls</h2>
+                <div class="testing-buttons">
+                    <button onclick="simulateTestLogin()" class="btn btn-secondary">Quick Test Login</button>
+                    <button onclick="simulateLoginFailure()" class="btn btn-secondary">Test Login Failure</button>
+                    <button onclick="simulatePasswordReset()" class="btn btn-secondary">Test Password Reset</button>
+                    <button onclick="simulateAccountLocked()" class="btn btn-secondary">Test Account Locked</button>
+                    <button onclick="simulateMultiFactorAuth()" class="btn btn-secondary">Test 2FA</button>
+                    <button onclick="clearUserData()" class="btn btn-tertiary">Clear User Data</button>
+                </div>
+            </section>
+
+            <!-- User Tracking Analytics -->
+            <section class="user-analytics">
+                <h2>User Analytics Dashboard</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Session Data</h3>
+                        <div id="session-data">
+                            <p>Session ID: <span id="session-id">-</span></p>
+                            <p>Session Start: <span id="session-start">-</span></p>
+                            <p>Page Views: <span id="page-views">-</span></p>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>User Journey</h3>
+                        <div id="user-journey">
+                            <p>Entry Page: <span id="entry-page">-</span></p>
+                            <p>Referrer: <span id="referrer-info">-</span></p>
+                            <p>Time on Site: <span id="time-on-site">-</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tealium Test Site - Authentication</p>
+            <div class="debug-info">
+                <button onclick="showDebugInfo()" class="btn btn-small">Show Debug Info</button>
+                <button onclick="showUserData()" class="btn btn-small">Show User Data</button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="tracking.js"></script>
+    <script>
+        // Authentication functionality and tracking
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+            updateAnalyticsDashboard();
+            trackAuthPageView();
+        });
+        
+        function checkLoginStatus() {
+            const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
+            
+            if (userData.isLoggedIn) {
+                showDashboard(userData);
+            } else {
+                showLoginForm();
+            }
+        }
+        
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
+            
+            // Simulate authentication
+            if (validateLogin(email, password)) {
+                const userData = createUserSession(email, rememberMe);
+                
+                // Track successful login
+                if (window.TealiumTracker) {
+                    window.TealiumTracker.trackUserLogin(userData.userId, userData.accountType);
+                    
+                    window.TealiumTracker.trackCustomEvent('login_success', 'authentication', {
+                        login_method: 'email_password',
+                        remember_me: rememberMe ? '1' : '0',
+                        account_type: userData.accountType
+                    });
+                }
+                
+                showDashboard(userData);
+                alert('Login successful! Check console for tracking events.');
+                
+            } else {
+                // Track failed login
+                if (window.TealiumTracker) {
+                    window.TealiumTracker.trackCustomEvent('login_failure', 'authentication', {
+                        login_method: 'email_password',
+                        failure_reason: 'invalid_credentials',
+                        attempted_email: email
+                    });
+                }
+                
+                alert('Invalid credentials. Try test@example.com / password');
+            }
+        }
+        
+        function handleSignup(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const accountType = document.getElementById('account-type').value;
+            const agreeTerms = document.getElementById('agree-terms').checked;
+            const marketingEmails = document.getElementById('marketing-emails').checked;
+            
+            if (!agreeTerms) {
+                alert('Please agree to the terms of service');
+                return;
+            }
+            
+            const userData = createUserSession(email, false, name, accountType);
+            
+            // Track successful signup
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('user_signup', 'authentication', {
+                    signup_method: 'email_form',
+                    account_type: accountType,
+                    marketing_opt_in: marketingEmails ? '1' : '0',
+                    user_name: name
+                });
+                
+                window.TealiumTracker.trackUserLogin(userData.userId, userData.accountType);
+            }
+            
+            showDashboard(userData);
+            alert('Account created successfully! Welcome to Tealium Test Site.');
+        }
+        
+        function handleSocialLogin(provider) {
+            // Simulate social login
+            const userData = createUserSession(`user@${provider}.com`, false, `${provider.charAt(0).toUpperCase() + provider.slice(1)} User`, 'personal');
+            
+            // Track social login
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('social_login', 'authentication', {
+                    social_provider: provider,
+                    login_method: 'social_oauth'
+                });
+                
+                window.TealiumTracker.trackUserLogin(userData.userId, userData.accountType);
+            }
+            
+            showDashboard(userData);
+            alert(`Logged in with ${provider}! Check console for tracking events.`);
+        }
+        
+        function handleLogout() {
+            const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
+            
+            // Track logout
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackUserLogout();
+                
+                window.TealiumTracker.trackCustomEvent('logout', 'authentication', {
+                    session_duration: userData.loginTime ? (Date.now() - new Date(userData.loginTime).getTime()).toString() : '0',
+                    logout_method: 'manual'
+                });
+            }
+            
+            // Clear user data
+            localStorage.removeItem('user_data');
+            
+            // Reset UI
+            showLoginForm();
+            
+            alert('Logged out successfully!');
+        }
+        
+        function validateLogin(email, password) {
+            // Simple validation for demo
+            return email === 'test@example.com' && password === 'password';
+        }
+        
+        function createUserSession(email, rememberMe, name = null, accountType = 'personal') {
+            const userData = {
+                userId: 'USER_' + Math.random().toString(36).substr(2, 9),
+                email: email,
+                name: name || email.split('@')[0],
+                accountType: accountType,
+                isLoggedIn: true,
+                loginTime: new Date().toISOString(),
+                rememberMe: rememberMe
+            };
+            
+            localStorage.setItem('user_data', JSON.stringify(userData));
+            
+            return userData;
+        }
+        
+        function showLoginForm() {
+            document.getElementById('login-container').style.display = 'block';
+            document.getElementById('dashboard-container').style.display = 'none';
+            document.getElementById('signup-container').style.display = 'none';
+        }
+        
+        function showSignupForm() {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('dashboard-container').style.display = 'none';
+            document.getElementById('signup-container').style.display = 'block';
+            
+            // Track signup form view
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('signup_form_view', 'authentication', {
+                    form_source: 'login_page'
+                });
+            }
+        }
+        
+        function showDashboard(userData) {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('dashboard-container').style.display = 'block';
+            document.getElementById('signup-container').style.display = 'none';
+            
+            // Update dashboard with user data
+            document.getElementById('user-name').textContent = userData.name;
+            document.getElementById('display-user-id').textContent = userData.userId;
+            document.getElementById('display-email').textContent = userData.email;
+            document.getElementById('display-account-type').textContent = userData.accountType;
+            document.getElementById('display-last-login').textContent = new Date(userData.loginTime).toLocaleString();
+        }
+        
+        // User actions
+        function updateProfile() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('profile_update_view', 'user_account', {
+                    action_type: 'profile_management'
+                });
+            }
+            
+            alert('Profile update page - Event tracked!');
+        }
+        
+        function viewOrderHistory() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('order_history_view', 'user_account', {
+                    action_type: 'order_management'
+                });
+            }
+            
+            alert('Order history page - Event tracked!');
+        }
+        
+        function managePreferences() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('preferences_view', 'user_account', {
+                    action_type: 'preference_management'
+                });
+            }
+            
+            alert('Preferences page - Event tracked!');
+        }
+        
+        function handleForgotPassword() {
+            const email = document.getElementById('email').value;
+            
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('password_reset_request', 'authentication', {
+                    request_method: 'forgot_password_link',
+                    has_email: email ? '1' : '0'
+                });
+            }
+            
+            alert('Password reset request tracked!');
+        }
+        
+        // Testing Functions
+        function simulateTestLogin() {
+            document.getElementById('email').value = 'test@example.com';
+            document.getElementById('password').value = 'password';
+            document.getElementById('login-form').dispatchEvent(new Event('submit'));
+        }
+        
+        function simulateLoginFailure() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('login_failure', 'authentication', {
+                    login_method: 'simulation',
+                    failure_reason: 'invalid_credentials',
+                    failure_count: '3'
+                });
+            }
+            
+            alert('Login failure event tracked!');
+        }
+        
+        function simulatePasswordReset() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('password_reset_success', 'authentication', {
+                    reset_method: 'email_link',
+                    reset_token_used: 'true'
+                });
+            }
+            
+            alert('Password reset success event tracked!');
+        }
+        
+        function simulateAccountLocked() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('account_locked', 'authentication', {
+                    lock_reason: 'failed_attempts',
+                    attempt_count: '5'
+                });
+            }
+            
+            alert('Account locked event tracked!');
+        }
+        
+        function simulateMultiFactorAuth() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('mfa_challenge', 'authentication', {
+                    mfa_method: 'sms',
+                    challenge_result: 'success'
+                });
+            }
+            
+            alert('Multi-factor authentication event tracked!');
+        }
+        
+        function clearUserData() {
+            if (confirm('Clear all user session data?')) {
+                localStorage.removeItem('user_data');
+                showLoginForm();
+                updateAnalyticsDashboard();
+                alert('User data cleared!');
+            }
+        }
+        
+        function trackAuthPageView() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('auth_page_view', 'authentication', {
+                    page_section: 'login_page'
+                });
+            }
+        }
+        
+        function trackPrivacyLinkClick(linkType) {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('privacy_link_click', 'authentication', {
+                    link_type: linkType,
+                    context: 'signup_form'
+                });
+            }
+            
+            alert(`${linkType} link clicked - Event tracked!`);
+        }
+        
+        function updateAnalyticsDashboard() {
+            // Update session data
+            document.getElementById('session-id').textContent = 'SES_' + Math.random().toString(36).substr(2, 8);
+            document.getElementById('session-start').textContent = new Date().toLocaleTimeString();
+            document.getElementById('page-views').textContent = Math.floor(Math.random() * 10) + 1;
+            
+            // Update user journey
+            document.getElementById('entry-page').textContent = 'index.html';
+            document.getElementById('referrer-info').textContent = document.referrer || 'Direct';
+            document.getElementById('time-on-site').textContent = Math.floor(Math.random() * 300) + ' seconds';
+        }
+        
+        function showUserData() {
+            const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
+            alert('Current User Data:\n' + JSON.stringify(userData, null, 2));
+        }
+    </script>
+</body>
+</html> 

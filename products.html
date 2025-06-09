@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Tealium Test Site</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Tealium Universal Data Object -->
+    <script type="text/javascript">
+        var utag_data = {
+            "tealium_event": "page_view",
+            "page_type": "catalog",
+            "page_name": "Products Catalog - Tealium Test Site",
+            "site_section": "products",
+            "site_language": "en",
+            "country_code": "US",
+            "currency_code": "USD",
+            "customer_type": "guest",
+            "page_category": "ecommerce",
+            "content_type": "product_listing",
+            "product_category": "all",
+            "total_products": "6",
+            "cart_total_items": "0",
+            "cart_total_value": "0.00",
+            "user_id": "",
+            "is_logged_in": "0",
+            "has_newsletter_subscription": "0"
+        };
+    </script>
+
+    <!-- Tealium Universal Tag -->
+    <script type="text/javascript">
+        (function(a,b,c,d) {
+            a='//tags.tiqcdn.com/utag/success-laura-solanes/dog-food/qa/utag.js';
+            b=document;c='script';d=b.createElement(c);d.src=a;
+            d.type='text/java'+c;d.async=true;
+            a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a)
+        })();
+    </script>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🐕 Tealium Test Site</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="products.html" class="nav-link active">Products</a></li>
+                <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
+                <li class="nav-item"><a href="cart.html" class="nav-link">Cart</a></li>
+                <li class="nav-item"><a href="checkout.html" class="nav-link">Checkout</a></li>
+                <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="consent.html" class="nav-link">Consent</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="page-header">
+                <h1>Product Catalog</h1>
+                <p>Test e-commerce tracking with our sample products</p>
+            </section>
+
+            <!-- Product Filters -->
+            <section class="product-filters">
+                <h2>Filter Products</h2>
+                <div class="filter-controls">
+                    <select id="category-filter" onchange="filterProducts('category', this.value)">
+                        <option value="">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="books">Books</option>
+                    </select>
+                    <select id="price-filter" onchange="filterProducts('price', this.value)">
+                        <option value="">All Prices</option>
+                        <option value="low">Under $50</option>
+                        <option value="medium">$50 - $100</option>
+                        <option value="high">Over $100</option>
+                    </select>
+                    <button onclick="clearFilters()" class="btn btn-secondary">Clear Filters</button>
+                </div>
+            </section>
+
+            <!-- Product Grid -->
+            <section class="products">
+                <div class="product-grid" id="product-grid">
+                    <div class="product-card" data-category="electronics" data-price="high">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <h3 class="product-title">Premium Smartphone</h3>
+                            <p class="product-price">$299.99</p>
+                            <p class="product-description">Latest model with advanced features for testing mobile commerce tracking.</p>
+                            <div class="product-actions">
+                                <button onclick="viewProduct('PHONE001', 'Premium Smartphone', '299.99', 'electronics')" class="btn btn-secondary">View Details</button>
+                                <button onclick="addToCart('PHONE001', 'Premium Smartphone', '299.99', 1)" class="btn btn-primary">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="clothing" data-price="medium">
+                        <div class="product-image">👕</div>
+                        <div class="product-info">
+                            <h3 class="product-title">Tealium T-Shirt</h3>
+                            <p class="product-price">$59.99</p>
+                            <p class="product-description">Comfortable branded t-shirt perfect for testing apparel tracking events.</p>
+                            <div class="product-actions">
+                                <button onclick="viewProduct('SHIRT001', 'Tealium T-Shirt', '59.99', 'clothing')" class="btn btn-secondary">View Details</button>
+                                <button onclick="addToCart('SHIRT001', 'Tealium T-Shirt', '59.99', 1)" class="btn btn-primary">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="books" data-price="low">
+                        <div class="product-image">📚</div>
+                        <div class="product-info">
+                            <h3 class="product-title">Analytics Guide</h3>
+                            <p class="product-price">$29.99</p>
+                            <p class="product-description">Comprehensive guide to digital analytics and tag management systems.</p>
+                            <div class="product-actions">
+                                <button onclick="viewProduct('BOOK001', 'Analytics Guide', '29.99', 'books')" class="btn btn-secondary">View Details</button>
+                                <button onclick="addToCart('BOOK001', 'Analytics Guide', '29.99', 1)" class="btn btn-primary">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="electronics" data-price="medium">
+                        <div class="product-image">💻</div>
+                        <div class="product-info">
+                            <h3 class="product-title">Tracking Laptop</h3>
+                            <p class="product-price">$899.99</p>
+                            <p class="product-description">High-performance laptop ideal for testing complex product tracking scenarios.</p>
+                            <div class="product-actions">
+                                <button onclick="viewProduct('LAPTOP001', 'Tracking Laptop', '899.99', 'electronics')" class="btn btn-secondary">View Details</button>
+                                <button onclick="addToCart('LAPTOP001', 'Tracking Laptop', '899.99', 1)" class="btn btn-primary">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="clothing" data-price="low">
+                        <div class="product-image">👟</div>
+                        <div class="product-info">
+                            <h3 class="product-title">Analytics Sneakers</h3>
+                            <p class="product-price">$79.99</p>
+                            <p class="product-description">Comfortable sneakers for long analytics sessions and testing marathons.</p>
+                            <div class="product-actions">
+                                <button onclick="viewProduct('SHOES001', 'Analytics Sneakers', '79.99', 'clothing')" class="btn btn-secondary">View Details</button>
+                                <button onclick="addToCart('SHOES001', 'Analytics Sneakers', '79.99', 1)" class="btn btn-primary">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="electronics" data-price="low">
+                        <div class="product-image">🎧</div>
+                        <div class="product-info">
+                            <h3 class="product-title">Data Headphones</h3>
+                            <p class="product-price">$49.99</p>
+                            <p class="product-description">High-quality headphones for clear audio during testing sessions.</p>
+                            <div class="product-actions">
+                                <button onclick="viewProduct('AUDIO001', 'Data Headphones', '49.99', 'electronics')" class="btn btn-secondary">View Details</button>
+                                <button onclick="addToCart('AUDIO001', 'Data Headphones', '49.99', 1)" class="btn btn-primary">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recently Viewed -->
+            <section class="recently-viewed">
+                <h2>Recently Viewed Products</h2>
+                <div id="recently-viewed-list" class="product-grid">
+                    <p>No recently viewed products yet. View some products to see them here!</p>
+                </div>
+            </section>
+
+            <!-- Recommendations -->
+            <section class="recommendations">
+                <h2>Recommended for You</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image">🔌</div>
+                        <div class="product-info">
+                            <h3 class="product-title">Analytics Adapter</h3>
+                            <p class="product-price">$19.99</p>
+                            <button onclick="viewProduct('ADAPTER001', 'Analytics Adapter', '19.99', 'electronics')" class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">📊</div>
+                        <div class="product-info">
+                            <h3 class="product-title">Dashboard Mouse Pad</h3>
+                            <p class="product-price">$12.99</p>
+                            <button onclick="viewProduct('MOUSEPAD001', 'Dashboard Mouse Pad', '12.99', 'electronics')" class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testing Controls -->
+            <section class="testing-controls">
+                <h2>Testing Controls</h2>
+                <div class="testing-buttons">
+                    <button onclick="simulateProductImpression()" class="btn btn-secondary">Simulate Product Impressions</button>
+                    <button onclick="simulateWishlistAdd()" class="btn btn-secondary">Test Wishlist Add</button>
+                    <button onclick="simulateProductCompare()" class="btn btn-secondary">Test Product Compare</button>
+                    <button onclick="simulateQuickView()" class="btn btn-secondary">Test Quick View</button>
+                    <button onclick="clearRecentlyViewed()" class="btn btn-tertiary">Clear Recently Viewed</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeProductModal()">&times;</span>
+            <div id="product-detail-content">
+                <!-- Product details will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tealium Test Site - Products Catalog</p>
+            <div class="debug-info">
+                <button onclick="showDebugInfo()" class="btn btn-small">Show Debug Info</button>
+                <button onclick="showCartContents()" class="btn btn-small">Show Cart</button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="tracking.js"></script>
+    <script>
+        // Product-specific tracking functions
+        
+        function viewProduct(productId, productName, price, category) {
+            // Track product view event
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackProductView(productId, productName, price, category);
+            }
+            
+            // Add to recently viewed
+            addToRecentlyViewed(productId, productName, price, category);
+            
+            // Show product modal
+            showProductModal(productId, productName, price, category);
+        }
+        
+        function addToCart(productId, productName, price, quantity = 1) {
+            // Add to localStorage cart
+            let cart = JSON.parse(localStorage.getItem('cart_items') || '[]');
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    price: parseFloat(price),
+                    quantity: quantity,
+                    category: getCurrentProductCategory(productId)
+                });
+            }
+            
+            localStorage.setItem('cart_items', JSON.stringify(cart));
+            
+            // Track add to cart event
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackAddToCart(productId, productName, price, quantity);
+            }
+            
+            // Show feedback
+            alert(`${productName} added to cart! Event tracked.`);
+            
+            // Update cart UI indicators
+            updateCartIndicators();
+        }
+        
+        function getCurrentProductCategory(productId) {
+            const categoryMap = {
+                'PHONE001': 'electronics',
+                'SHIRT001': 'clothing',
+                'BOOK001': 'books',
+                'LAPTOP001': 'electronics',
+                'SHOES001': 'clothing',
+                'AUDIO001': 'electronics'
+            };
+            return categoryMap[productId] || 'general';
+        }
+        
+        function addToRecentlyViewed(productId, productName, price, category) {
+            let recentlyViewed = JSON.parse(localStorage.getItem('recently_viewed') || '[]');
+            
+            // Remove if already exists
+            recentlyViewed = recentlyViewed.filter(item => item.id !== productId);
+            
+            // Add to beginning
+            recentlyViewed.unshift({
+                id: productId,
+                name: productName,
+                price: price,
+                category: category,
+                viewedAt: new Date().toISOString()
+            });
+            
+            // Keep only last 5
+            recentlyViewed = recentlyViewed.slice(0, 5);
+            
+            localStorage.setItem('recently_viewed', JSON.stringify(recentlyViewed));
+            
+            // Update recently viewed display
+            updateRecentlyViewedDisplay();
+        }
+        
+        function updateRecentlyViewedDisplay() {
+            const recentlyViewed = JSON.parse(localStorage.getItem('recently_viewed') || '[]');
+            const container = document.getElementById('recently-viewed-list');
+            
+            if (recentlyViewed.length === 0) {
+                container.innerHTML = '<p>No recently viewed products yet. View some products to see them here!</p>';
+                return;
+            }
+            
+            container.innerHTML = recentlyViewed.map(item => `
+                <div class="product-card">
+                    <div class="product-image">${getProductEmoji(item.category)}</div>
+                    <div class="product-info">
+                        <h3 class="product-title">${item.name}</h3>
+                        <p class="product-price">$${item.price}</p>
+                        <button onclick="viewProduct('${item.id}', '${item.name}', '${item.price}', '${item.category}')" class="btn btn-secondary">View Again</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function getProductEmoji(category) {
+            const emojiMap = {
+                'electronics': '⚡',
+                'clothing': '👔',
+                'books': '📖'
+            };
+            return emojiMap[category] || '📦';
+        }
+        
+        function showProductModal(productId, productName, price, category) {
+            const modal = document.getElementById('product-modal');
+            const content = document.getElementById('product-detail-content');
+            
+            content.innerHTML = `
+                <h2>${productName}</h2>
+                <div class="product-detail">
+                    <div class="product-image-large">${getProductEmoji(category)}</div>
+                    <div class="product-details">
+                        <p class="product-price-large">$${price}</p>
+                        <p><strong>Category:</strong> ${category}</p>
+                        <p><strong>Product ID:</strong> ${productId}</p>
+                        <p><strong>Description:</strong> This is a detailed view of the product for testing product detail page tracking.</p>
+                        
+                        <div class="product-options">
+                            <label for="quantity">Quantity:</label>
+                            <select id="modal-quantity">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        
+                        <div class="modal-actions">
+                            <button onclick="addToCartFromModal('${productId}', '${productName}', '${price}')" class="btn btn-primary">Add to Cart</button>
+                            <button onclick="addToWishlist('${productId}', '${productName}', '${price}')" class="btn btn-secondary">Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+            
+            // Track modal view
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('product_modal_view', 'ecommerce', {
+                    product_id: productId,
+                    product_name: productName,
+                    modal_type: 'product_detail'
+                });
+            }
+        }
+        
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.style.display = 'none';
+        }
+        
+        function addToCartFromModal(productId, productName, price) {
+            const quantity = parseInt(document.getElementById('modal-quantity').value);
+            addToCart(productId, productName, price, quantity);
+            closeProductModal();
+        }
+        
+        function addToWishlist(productId, productName, price) {
+            // Track wishlist add
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('wishlist_add', 'ecommerce', {
+                    product_id: productId,
+                    product_name: productName,
+                    product_price: price
+                });
+            }
+            
+            alert(`${productName} added to wishlist! Event tracked.`);
+            closeProductModal();
+        }
+        
+        // Product filtering
+        function filterProducts(filterType, filterValue) {
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                if (filterType === 'category') {
+                    if (!filterValue || card.dataset.category === filterValue) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                } else if (filterType === 'price') {
+                    const priceCategory = card.dataset.price;
+                    if (!filterValue || priceCategory === filterValue) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+            
+            // Track filter usage
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('product_filter', 'catalog', {
+                    filter_type: filterType,
+                    filter_value: filterValue || 'all'
+                });
+            }
+        }
+        
+        function clearFilters() {
+            document.getElementById('category-filter').value = '';
+            document.getElementById('price-filter').value = '';
+            
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.style.display = 'block';
+            });
+            
+            // Track filter clear
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('filter_clear', 'catalog', {});
+            }
+        }
+        
+        // Testing functions
+        function simulateProductImpression() {
+            const products = [
+                {id: 'PHONE001', name: 'Premium Smartphone', category: 'electronics'},
+                {id: 'SHIRT001', name: 'Tealium T-Shirt', category: 'clothing'},
+                {id: 'BOOK001', name: 'Analytics Guide', category: 'books'}
+            ];
+            
+            products.forEach((product, index) => {
+                setTimeout(() => {
+                    if (window.TealiumTracker) {
+                        window.TealiumTracker.trackCustomEvent('product_impression', 'ecommerce', {
+                            product_id: product.id,
+                            product_name: product.name,
+                            product_category: product.category,
+                            list_position: (index + 1).toString()
+                        });
+                    }
+                }, index * 500);
+            });
+            
+            alert('Product impressions simulated! Check console for events.');
+        }
+        
+        function simulateWishlistAdd() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('wishlist_add', 'ecommerce', {
+                    product_id: 'TEST001',
+                    product_name: 'Test Product',
+                    product_price: '99.99'
+                });
+            }
+            alert('Wishlist add event tracked!');
+        }
+        
+        function simulateProductCompare() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('product_compare', 'ecommerce', {
+                    products_compared: 'PHONE001,LAPTOP001',
+                    compare_count: '2'
+                });
+            }
+            alert('Product compare event tracked!');
+        }
+        
+        function simulateQuickView() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('quick_view', 'ecommerce', {
+                    product_id: 'PHONE001',
+                    product_name: 'Premium Smartphone',
+                    view_type: 'quick_view'
+                });
+            }
+            alert('Quick view event tracked!');
+        }
+        
+        function clearRecentlyViewed() {
+            localStorage.removeItem('recently_viewed');
+            updateRecentlyViewedDisplay();
+            alert('Recently viewed products cleared!');
+        }
+        
+        function updateCartIndicators() {
+            const cart = JSON.parse(localStorage.getItem('cart_items') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Update any cart indicators in the UI
+            console.log(`Cart updated: ${totalItems} items`);
+        }
+        
+        function showCartContents() {
+            const cart = JSON.parse(localStorage.getItem('cart_items') || '[]');
+            alert('Cart contents:\n' + JSON.stringify(cart, null, 2));
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateRecentlyViewedDisplay();
+            updateCartIndicators();
+        });
+    </script>
+</body>
+</html> 

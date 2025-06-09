@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Tealium Test Site</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Tealium Universal Data Object -->
+    <script type="text/javascript">
+        var utag_data = {
+            "tealium_event": "page_view",
+            "page_type": "cart",
+            "page_name": "Shopping Cart - Tealium Test Site",
+            "site_section": "cart",
+            "site_language": "en",
+            "country_code": "US",
+            "currency_code": "USD",
+            "customer_type": "guest",
+            "page_category": "ecommerce",
+            "content_type": "cart_page",
+            "cart_total_items": "0",
+            "cart_total_value": "0.00",
+            "user_id": "",
+            "is_logged_in": "0",
+            "has_newsletter_subscription": "0"
+        };
+    </script>
+
+    <!-- Tealium Universal Tag -->
+    <script type="text/javascript">
+        (function(a,b,c,d) {
+            a='//tags.tiqcdn.com/utag/success-laura-solanes/dog-food/qa/utag.js';
+            b=document;c='script';d=b.createElement(c);d.src=a;
+            d.type='text/java'+c;d.async=true;
+            a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a)
+        })();
+    </script>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🐕 Tealium Test Site</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="products.html" class="nav-link">Products</a></li>
+                <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
+                <li class="nav-item"><a href="cart.html" class="nav-link active">Cart</a></li>
+                <li class="nav-item"><a href="checkout.html" class="nav-link">Checkout</a></li>
+                <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="consent.html" class="nav-link">Consent</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="cart-container">
+            <section class="page-header">
+                <h1>Shopping Cart</h1>
+                <p>Review your items and proceed to checkout</p>
+            </section>
+
+            <!-- Cart Items -->
+            <section id="cart-items-section" class="cart-items">
+                <div id="cart-items-container">
+                    <!-- Cart items will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <!-- Empty Cart Message -->
+            <section id="empty-cart" class="empty-cart" style="display: none;">
+                <div class="empty-cart-content">
+                    <h2>Your cart is empty</h2>
+                    <p>Add some products to get started with your purchase!</p>
+                    <a href="products.html" class="btn btn-primary">Browse Products</a>
+                </div>
+            </section>
+
+            <!-- Cart Summary -->
+            <section id="cart-summary-section" class="cart-summary" style="display: none;">
+                <div class="summary-content">
+                    <h2>Order Summary</h2>
+                    
+                    <div class="summary-line">
+                        <span>Subtotal:</span>
+                        <span id="cart-subtotal">$0.00</span>
+                    </div>
+                    
+                    <div class="summary-line">
+                        <span>Shipping:</span>
+                        <span id="cart-shipping">$5.99</span>
+                    </div>
+                    
+                    <div class="summary-line">
+                        <span>Tax:</span>
+                        <span id="cart-tax">$0.00</span>
+                    </div>
+                    
+                    <div class="summary-line total">
+                        <span><strong>Total:</strong></span>
+                        <span id="cart-total"><strong>$0.00</strong></span>
+                    </div>
+
+                    <div class="promo-code">
+                        <h3>Promo Code</h3>
+                        <div class="promo-input">
+                            <input type="text" id="promo-code-input" placeholder="Enter promo code">
+                            <button onclick="applyPromoCode()" class="btn btn-secondary">Apply</button>
+                        </div>
+                        <div id="promo-message" class="promo-message"></div>
+                    </div>
+
+                    <div class="cart-actions">
+                        <a href="products.html" class="btn btn-secondary">Continue Shopping</a>
+                        <button onclick="proceedToCheckout()" class="btn btn-primary btn-large">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recommended Products -->
+            <section id="recommendations" class="recommendations" style="display: none;">
+                <h2>You might also like</h2>
+                <div class="product-grid">
+                    <div class="product-card" onclick="trackRecommendationClick('REC001', 'Recommended Item 1')">
+                        <div class="product-image">🎯</div>
+                        <div class="product-info">
+                            <h3 class="product-title">Analytics Dashboard</h3>
+                            <p class="product-price">$89.99</p>
+                            <button onclick="addRecommendedToCart('REC001', 'Analytics Dashboard', '89.99', event)" class="btn btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card" onclick="trackRecommendationClick('REC002', 'Recommended Item 2')">
+                        <div class="product-image">📈</div>
+                        <div class="product-info">
+                            <h3 class="product-title">Tracking Guide</h3>
+                            <p class="product-price">$39.99</p>
+                            <button onclick="addRecommendedToCart('REC002', 'Tracking Guide', '39.99', event)" class="btn btn-primary">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cart Testing Controls -->
+            <section class="testing-controls">
+                <h2>Cart Testing Controls</h2>
+                <div class="testing-buttons">
+                    <button onclick="addSampleProducts()" class="btn btn-secondary">Add Sample Products</button>
+                    <button onclick="simulateCartAbandonment()" class="btn btn-secondary">Simulate Cart Abandonment</button>
+                    <button onclick="simulateBackInStock()" class="btn btn-secondary">Test Back in Stock</button>
+                    <button onclick="simulateInventoryWarning()" class="btn btn-secondary">Test Low Inventory</button>
+                    <button onclick="clearCart()" class="btn btn-tertiary">Clear Cart</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Remove Item Modal -->
+    <div id="remove-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Remove Item</h2>
+            <p>Are you sure you want to remove this item from your cart?</p>
+            <div class="modal-actions">
+                <button onclick="confirmRemoveItem()" class="btn btn-primary">Yes, Remove</button>
+                <button onclick="closeRemoveModal()" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tealium Test Site - Shopping Cart</p>
+            <div class="debug-info">
+                <button onclick="showDebugInfo()" class="btn btn-small">Show Debug Info</button>
+                <button onclick="exportCartData()" class="btn btn-small">Export Cart</button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="tracking.js"></script>
+    <script>
+        // Cart functionality and tracking
+        
+        let itemToRemove = null;
+        let cartStartTime = Date.now();
+        
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartItems();
+            updateCartDisplay();
+            trackCartPageView();
+            
+            // Track time spent on cart page
+            window.addEventListener('beforeunload', function() {
+                const timeOnCart = Date.now() - cartStartTime;
+                if (window.TealiumTracker) {
+                    window.TealiumTracker.trackCustomEvent('cart_time_spent', 'ecommerce', {
+                        time_on_cart: timeOnCart.toString(),
+                        cart_items: getCartItems().length.toString()
+                    });
+                }
+            });
+        });
+        
+        function getCartItems() {
+            return JSON.parse(localStorage.getItem('cart_items') || '[]');
+        }
+        
+        function saveCartItems(items) {
+            localStorage.setItem('cart_items', JSON.stringify(items));
+        }
+        
+        function loadCartItems() {
+            const cartItems = getCartItems();
+            updateCartDataLayer(cartItems);
+        }
+        
+        function updateCartDataLayer(cartItems) {
+            const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            const totalValue = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            if (window.utag_data) {
+                window.utag_data.cart_total_items = totalItems.toString();
+                window.utag_data.cart_total_value = totalValue.toFixed(2);
+            }
+        }
+        
+        function updateCartDisplay() {
+            const cartItems = getCartItems();
+            const cartContainer = document.getElementById('cart-items-container');
+            const emptyCart = document.getElementById('empty-cart');
+            const cartSummary = document.getElementById('cart-summary-section');
+            const recommendations = document.getElementById('recommendations');
+            
+            if (cartItems.length === 0) {
+                emptyCart.style.display = 'block';
+                cartSummary.style.display = 'none';
+                recommendations.style.display = 'none';
+                cartContainer.innerHTML = '';
+                return;
+            }
+            
+            emptyCart.style.display = 'none';
+            cartSummary.style.display = 'block';
+            recommendations.style.display = 'block';
+            
+            // Display cart items
+            cartContainer.innerHTML = cartItems.map((item, index) => `
+                <div class="cart-item" data-product-id="${item.id}">
+                    <div class="cart-item-image">${getProductEmoji(item.category || 'general')}</div>
+                    <div class="cart-item-info">
+                        <h3 class="cart-item-title">${item.name}</h3>
+                        <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                        <p class="cart-item-category">Category: ${item.category || 'General'}</p>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
+                        <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="10" 
+                               onchange="updateQuantity('${item.id}', parseInt(this.value))">
+                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
+                    </div>
+                    <div class="cart-item-total">
+                        <p class="item-total">$${(item.price * item.quantity).toFixed(2)}</p>
+                        <button onclick="removeItem('${item.id}', '${item.name}')" class="btn btn-small btn-tertiary">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Update summary
+            updateCartSummary(cartItems);
+        }
+        
+        function updateCartSummary(cartItems) {
+            const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal > 50 ? 0 : 5.99; // Free shipping over $50
+            const tax = subtotal * 0.08; // 8% tax
+            const total = subtotal + shipping + tax;
+            
+            document.getElementById('cart-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('cart-shipping').textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
+            document.getElementById('cart-tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('cart-total').innerHTML = `<strong>$${total.toFixed(2)}</strong>`;
+        }
+        
+        function updateQuantity(productId, newQuantity) {
+            if (newQuantity < 1 || newQuantity > 10) return;
+            
+            let cartItems = getCartItems();
+            const itemIndex = cartItems.findIndex(item => item.id === productId);
+            
+            if (itemIndex !== -1) {
+                const oldQuantity = cartItems[itemIndex].quantity;
+                cartItems[itemIndex].quantity = newQuantity;
+                
+                saveCartItems(cartItems);
+                updateCartDisplay();
+                updateCartDataLayer(cartItems);
+                
+                // Track quantity change
+                if (window.TealiumTracker) {
+                    window.TealiumTracker.trackCustomEvent('cart_quantity_change', 'ecommerce', {
+                        product_id: productId,
+                        product_name: cartItems[itemIndex].name,
+                        old_quantity: oldQuantity.toString(),
+                        new_quantity: newQuantity.toString(),
+                        quantity_change: (newQuantity - oldQuantity).toString()
+                    });
+                }
+            }
+        }
+        
+        function removeItem(productId, productName) {
+            itemToRemove = { id: productId, name: productName };
+            document.getElementById('remove-modal').style.display = 'block';
+        }
+        
+        function confirmRemoveItem() {
+            if (!itemToRemove) return;
+            
+            let cartItems = getCartItems();
+            const itemIndex = cartItems.findIndex(item => item.id === itemToRemove.id);
+            
+            if (itemIndex !== -1) {
+                const removedItem = cartItems[itemIndex];
+                cartItems.splice(itemIndex, 1);
+                
+                saveCartItems(cartItems);
+                updateCartDisplay();
+                updateCartDataLayer(cartItems);
+                
+                // Track item removal
+                if (window.TealiumTracker) {
+                    window.TealiumTracker.trackRemoveFromCart(
+                        removedItem.id, 
+                        removedItem.name, 
+                        removedItem.price.toString(), 
+                        removedItem.quantity
+                    );
+                }
+                
+                alert(`${itemToRemove.name} removed from cart!`);
+            }
+            
+            closeRemoveModal();
+        }
+        
+        function closeRemoveModal() {
+            document.getElementById('remove-modal').style.display = 'none';
+            itemToRemove = null;
+        }
+        
+        function applyPromoCode() {
+            const promoCode = document.getElementById('promo-code-input').value.trim();
+            const messageElement = document.getElementById('promo-message');
+            
+            if (!promoCode) {
+                messageElement.textContent = 'Please enter a promo code';
+                messageElement.className = 'promo-message error';
+                return;
+            }
+            
+            // Simulate promo code validation
+            const validCodes = {
+                'SAVE10': { discount: 10, type: 'percentage' },
+                'FREESHIP': { discount: 5.99, type: 'shipping' },
+                'WELCOME': { discount: 15, type: 'fixed' }
+            };
+            
+            if (validCodes[promoCode.toUpperCase()]) {
+                const promo = validCodes[promoCode.toUpperCase()];
+                messageElement.textContent = `Promo code applied! You saved $${promo.discount}`;
+                messageElement.className = 'promo-message success';
+                
+                // Track promo code usage
+                if (window.TealiumTracker) {
+                    window.TealiumTracker.trackCustomEvent('promo_code_applied', 'ecommerce', {
+                        promo_code: promoCode.toUpperCase(),
+                        discount_amount: promo.discount.toString(),
+                        discount_type: promo.type
+                    });
+                }
+            } else {
+                messageElement.textContent = 'Invalid promo code';
+                messageElement.className = 'promo-message error';
+                
+                // Track invalid promo code
+                if (window.TealiumTracker) {
+                    window.TealiumTracker.trackCustomEvent('promo_code_invalid', 'ecommerce', {
+                        promo_code: promoCode,
+                        error_type: 'invalid_code'
+                    });
+                }
+            }
+        }
+        
+        function proceedToCheckout() {
+            const cartItems = getCartItems();
+            
+            if (cartItems.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Track checkout initiation
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('checkout_initiated', 'ecommerce', {
+                    cart_items: cartItems.length.toString(),
+                    cart_value: cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2),
+                    product_ids: cartItems.map(item => item.id).join(','),
+                    checkout_step: '1'
+                });
+            }
+            
+            // Redirect to checkout
+            window.location.href = 'checkout.html';
+        }
+        
+        function trackCartPageView() {
+            const cartItems = getCartItems();
+            
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('cart_page_view', 'ecommerce', {
+                    cart_items: cartItems.length.toString(),
+                    cart_value: cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2),
+                    is_empty_cart: cartItems.length === 0 ? '1' : '0'
+                });
+            }
+        }
+        
+        function trackRecommendationClick(productId, productName) {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('recommendation_click', 'ecommerce', {
+                    product_id: productId,
+                    product_name: productName,
+                    recommendation_context: 'cart_page',
+                    recommendation_position: '1'
+                });
+            }
+        }
+        
+        function addRecommendedToCart(productId, productName, price, event) {
+            event.stopPropagation();
+            
+            // Add to cart
+            let cartItems = getCartItems();
+            const existingItem = cartItems.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cartItems.push({
+                    id: productId,
+                    name: productName,
+                    price: parseFloat(price),
+                    quantity: 1,
+                    category: 'recommended'
+                });
+            }
+            
+            saveCartItems(cartItems);
+            updateCartDisplay();
+            updateCartDataLayer(cartItems);
+            
+            // Track recommendation add to cart
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('recommendation_add_to_cart', 'ecommerce', {
+                    product_id: productId,
+                    product_name: productName,
+                    product_price: price,
+                    recommendation_context: 'cart_page'
+                });
+            }
+            
+            alert(`${productName} added to cart from recommendations!`);
+        }
+        
+        // Testing Functions
+        function addSampleProducts() {
+            const sampleProducts = [
+                { id: 'SAMPLE001', name: 'Sample Product 1', price: 29.99, quantity: 1, category: 'electronics' },
+                { id: 'SAMPLE002', name: 'Sample Product 2', price: 49.99, quantity: 2, category: 'clothing' }
+            ];
+            
+            let cartItems = getCartItems();
+            
+            sampleProducts.forEach(product => {
+                const existingItem = cartItems.find(item => item.id === product.id);
+                if (!existingItem) {
+                    cartItems.push(product);
+                }
+            });
+            
+            saveCartItems(cartItems);
+            updateCartDisplay();
+            updateCartDataLayer(cartItems);
+            
+            alert('Sample products added to cart!');
+        }
+        
+        function simulateCartAbandonment() {
+            const cartItems = getCartItems();
+            
+            if (cartItems.length === 0) {
+                alert('Add some items to cart first!');
+                return;
+            }
+            
+            // Track cart abandonment
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('cart_abandonment', 'ecommerce', {
+                    cart_items: cartItems.length.toString(),
+                    cart_value: cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2),
+                    abandonment_stage: 'cart_page',
+                    time_on_cart: (Date.now() - cartStartTime).toString()
+                });
+            }
+            
+            alert('Cart abandonment event tracked!');
+        }
+        
+        function simulateBackInStock() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('back_in_stock_notification', 'inventory', {
+                    product_id: 'STOCK001',
+                    product_name: 'Previously Out of Stock Item',
+                    notification_method: 'email'
+                });
+            }
+            
+            alert('Back in stock notification tracked!');
+        }
+        
+        function simulateInventoryWarning() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('low_inventory_warning', 'inventory', {
+                    product_id: 'PHONE001',
+                    remaining_stock: '3',
+                    warning_threshold: '5'
+                });
+            }
+            
+            alert('Low inventory warning tracked!');
+        }
+        
+        function clearCart() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                const cartItems = getCartItems();
+                
+                // Track cart clear
+                if (window.TealiumTracker) {
+                    window.TealiumTracker.trackCustomEvent('cart_cleared', 'ecommerce', {
+                        items_cleared: cartItems.length.toString(),
+                        value_cleared: cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2),
+                        clear_method: 'manual'
+                    });
+                }
+                
+                saveCartItems([]);
+                updateCartDisplay();
+                updateCartDataLayer([]);
+                
+                alert('Cart cleared!');
+            }
+        }
+        
+        function exportCartData() {
+            const cartItems = getCartItems();
+            const cartData = {
+                items: cartItems,
+                timestamp: new Date().toISOString(),
+                totals: {
+                    items: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+                    value: cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+                }
+            };
+            
+            // Create download
+            const blob = new Blob([JSON.stringify(cartData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'cart-data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function getProductEmoji(category) {
+            const emojiMap = {
+                'electronics': '⚡',
+                'clothing': '👔',
+                'books': '📖',
+                'recommended': '⭐',
+                'general': '📦'
+            };
+            return emojiMap[category] || '📦';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('remove-modal');
+            if (event.target === modal) {
+                closeRemoveModal();
+            }
+        };
+    </script>
+</body>
+</html> 

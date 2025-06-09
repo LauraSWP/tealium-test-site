@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tealium Test Site - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Tealium Universal Data Object - MUST come before utag.js -->
+    <script type="text/javascript">
+        var utag_data = {
+            "tealium_event": "page_view",
+            "page_type": "home",
+            "page_name": "Homepage - Tealium Test Site",
+            "site_section": "home",
+            "site_language": "en",
+            "country_code": "US",
+            "currency_code": "USD",
+            "customer_type": "guest",
+            "page_category": "main",
+            "content_type": "landing_page",
+            "search_keyword": "",
+            "search_results": "",
+            "cart_total_items": "0",
+            "cart_total_value": "0.00",
+            "user_id": "",
+            "is_logged_in": "0",
+            "has_newsletter_subscription": "0"
+        };
+    </script>
+
+    <!-- Tealium Universal Tag -->
+    <script type="text/javascript">
+        (function(a,b,c,d) {
+            a='//tags.tiqcdn.com/utag/success-laura-solanes/dog-food/prod/utag.js';
+            b=document;c='script';d=b.createElement(c);d.src=a;
+            d.type='text/java'+c;d.async=true;
+            a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a)
+        })();
+    </script>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🐕 Tealium Test Site</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="products.html" class="nav-link">Products</a></li>
+                <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
+                <li class="nav-item"><a href="cart.html" class="nav-link">Cart</a></li>
+                <li class="nav-item"><a href="checkout.html" class="nav-link">Checkout</a></li>
+                <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="consent.html" class="nav-link">Consent</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Consent Banner -->
+    <div id="consent-banner" class="consent-banner">
+        <div class="consent-content">
+            <p>We use cookies and tracking technologies to improve your experience. Please accept our privacy policy.</p>
+            <div class="consent-buttons">
+                <button id="accept-all" class="btn btn-primary">Accept All</button>
+                <button id="reject-all" class="btn btn-secondary">Reject All</button>
+                <button id="manage-preferences" class="btn btn-tertiary">Manage Preferences</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Tealium Testing Site</h1>
+                <p>This comprehensive testing environment helps you validate Tealium implementations with various tracking scenarios.</p>
+                <button id="hero-cta" class="btn btn-large btn-primary">Get Started Testing</button>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Testing Features Available</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>📊 Page View Tracking</h3>
+                        <p>Test standard page view events across different page types</p>
+                        <button onclick="trackCustomEvent('feature_explore', 'page_tracking')" class="btn btn-secondary">Test Page Tracking</button>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🛒 E-commerce Events</h3>
+                        <p>Product views, cart actions, and purchase tracking</p>
+                        <a href="products.html" class="btn btn-secondary">View Products</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔍 Search Tracking</h3>
+                        <p>Track search queries and results</p>
+                        <a href="search.html" class="btn btn-secondary">Test Search</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>👤 User Authentication</h3>
+                        <p>Login/logout events and user identification</p>
+                        <a href="login.html" class="btn btn-secondary">Test Login</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📋 Form Interactions</h3>
+                        <p>Form submissions and field interactions</p>
+                        <button onclick="showNewsletterForm()" class="btn btn-secondary">Test Forms</button>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🍪 Consent Management</h3>
+                        <p>Privacy consent and cookie preferences</p>
+                        <a href="consent.html" class="btn btn-secondary">Manage Consent</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Form -->
+        <section id="newsletter-section" class="newsletter" style="display: none;">
+            <div class="container">
+                <h2>Newsletter Signup</h2>
+                <form id="newsletter-form" class="newsletter-form">
+                    <div class="form-group">
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="preferences">Interests:</label>
+                        <select id="preferences" name="preferences">
+                            <option value="general">General Updates</option>
+                            <option value="products">Product News</option>
+                            <option value="promotions">Promotions</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Social Share Section -->
+        <section class="social-share">
+            <div class="container">
+                <h2>Share This Page</h2>
+                <div class="social-buttons">
+                    <button onclick="shareOnSocial('facebook')" class="social-btn facebook">Share on Facebook</button>
+                    <button onclick="shareOnSocial('twitter')" class="social-btn twitter">Share on Twitter</button>
+                    <button onclick="shareOnSocial('linkedin')" class="social-btn linkedin">Share on LinkedIn</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tealium Test Site. Built for testing Tealium implementations.</p>
+            <div class="debug-info">
+                <button onclick="showDebugInfo()" class="btn btn-small">Show Debug Info</button>
+                <button onclick="clearDataLayer()" class="btn btn-small">Clear Data Layer</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Debug Modal -->
+    <div id="debug-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeDebugModal()">&times;</span>
+            <h2>Debug Information</h2>
+            <div id="debug-content">
+                <h3>Current utag_data:</h3>
+                <pre id="utag-data-display"></pre>
+                <h3>Tealium Status:</h3>
+                <pre id="tealium-status"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="tracking.js"></script>
+</body>
+</html> 

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy & Consent - Tealium Test Site</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Tealium Universal Data Object -->
+    <script type="text/javascript">
+        var utag_data = {
+            "tealium_event": "page_view",
+            "page_type": "consent",
+            "page_name": "Privacy & Consent - Tealium Test Site",
+            "site_section": "privacy",
+            "site_language": "en",
+            "country_code": "US",
+            "currency_code": "USD",
+            "customer_type": "guest",
+            "page_category": "privacy",
+            "content_type": "consent_management",
+            "cart_total_items": "0",
+            "cart_total_value": "0.00",
+            "user_id": "",
+            "is_logged_in": "0",
+            "has_newsletter_subscription": "0"
+        };
+    </script>
+
+    <!-- Tealium Universal Tag -->
+    <script type="text/javascript">
+        (function(a,b,c,d) {
+            a='//tags.tiqcdn.com/utag/success-laura-solanes/dog-food/qa/utag.js';
+            b=document;c='script';d=b.createElement(c);d.src=a;
+            d.type='text/java'+c;d.async=true;
+            a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a)
+        })();
+    </script>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🐕 Tealium Test Site</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="products.html" class="nav-link">Products</a></li>
+                <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
+                <li class="nav-item"><a href="cart.html" class="nav-link">Cart</a></li>
+                <li class="nav-item"><a href="checkout.html" class="nav-link">Checkout</a></li>
+                <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="consent.html" class="nav-link active">Consent</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="page-header">
+                <h1>Privacy & Consent Management</h1>
+                <p>Manage your privacy preferences and data collection consent</p>
+            </section>
+
+            <!-- Current Consent Status -->
+            <section class="consent-status">
+                <h2>Your Current Privacy Settings</h2>
+                <div id="current-status" class="status-card">
+                    <div class="status-info">
+                        <h3>Consent Status: <span id="status-text">Not Set</span></h3>
+                        <p>Last updated: <span id="last-updated">Never</span></p>
+                    </div>
+                    <div class="status-actions">
+                        <button onclick="showConsentHistory()" class="btn btn-secondary">View History</button>
+                        <button onclick="downloadConsentData()" class="btn btn-secondary">Download Data</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Consent Categories -->
+            <section class="consent-categories">
+                <h2>Consent Categories</h2>
+                <p>Choose which types of data collection you're comfortable with:</p>
+
+                <form id="consent-form" class="consent-form">
+                    <!-- Essential Cookies -->
+                    <div class="consent-category">
+                        <div class="category-header">
+                            <div class="category-info">
+                                <h3>Essential Cookies</h3>
+                                <p>Required for basic website functionality</p>
+                            </div>
+                            <div class="category-toggle">
+                                <input type="checkbox" id="essential" checked disabled>
+                                <label for="essential" class="toggle-label">Always Active</label>
+                            </div>
+                        </div>
+                        <div class="category-details">
+                            <p><strong>Purpose:</strong> Authentication, security, and basic site functionality</p>
+                            <p><strong>Data collected:</strong> Session tokens, security preferences, language settings</p>
+                            <p><strong>Retention:</strong> Session-based or until you clear your browser</p>
+                        </div>
+                    </div>
+
+                    <!-- Analytics -->
+                    <div class="consent-category">
+                        <div class="category-header">
+                            <div class="category-info">
+                                <h3>Analytics & Performance</h3>
+                                <p>Help us understand how you use our site</p>
+                            </div>
+                            <div class="category-toggle">
+                                <input type="checkbox" id="analytics" onchange="trackConsentChange('analytics', this.checked)">
+                                <label for="analytics" class="toggle-label">Toggle</label>
+                            </div>
+                        </div>
+                        <div class="category-details">
+                            <p><strong>Purpose:</strong> Site analytics, performance monitoring, user behavior analysis</p>
+                            <p><strong>Data collected:</strong> Page views, click events, time on site, device information</p>
+                            <p><strong>Retention:</strong> Up to 2 years</p>
+                            <p><strong>Third parties:</strong> Google Analytics, Tealium</p>
+                        </div>
+                    </div>
+
+                    <!-- Marketing -->
+                    <div class="consent-category">
+                        <div class="category-header">
+                            <div class="category-info">
+                                <h3>Marketing & Advertising</h3>
+                                <p>Personalized ads and marketing communications</p>
+                            </div>
+                            <div class="category-toggle">
+                                <input type="checkbox" id="marketing" onchange="trackConsentChange('marketing', this.checked)">
+                                <label for="marketing" class="toggle-label">Toggle</label>
+                            </div>
+                        </div>
+                        <div class="category-details">
+                            <p><strong>Purpose:</strong> Targeted advertising, email marketing, social media integration</p>
+                            <p><strong>Data collected:</strong> Ad interactions, email engagement, social sharing</p>
+                            <p><strong>Retention:</strong> Up to 1 year</p>
+                            <p><strong>Third parties:</strong> Facebook, Google Ads, Email providers</p>
+                        </div>
+                    </div>
+
+                    <!-- Personalization -->
+                    <div class="consent-category">
+                        <div class="category-header">
+                            <div class="category-info">
+                                <h3>Personalization</h3>
+                                <p>Customize your experience based on your preferences</p>
+                            </div>
+                            <div class="category-toggle">
+                                <input type="checkbox" id="personalization" onchange="trackConsentChange('personalization', this.checked)">
+                                <label for="personalization" class="toggle-label">Toggle</label>
+                            </div>
+                        </div>
+                        <div class="category-details">
+                            <p><strong>Purpose:</strong> Product recommendations, UI customization, saved preferences</p>
+                            <p><strong>Data collected:</strong> Purchase history, browsing patterns, saved items</p>
+                            <p><strong>Retention:</strong> Until you request deletion</p>
+                            <p><strong>Third parties:</strong> Recommendation engines</p>
+                        </div>
+                    </div>
+
+                    <!-- Social Media -->
+                    <div class="consent-category">
+                        <div class="category-header">
+                            <div class="category-info">
+                                <h3>Social Media Integration</h3>
+                                <p>Connect with social media platforms</p>
+                            </div>
+                            <div class="category-toggle">
+                                <input type="checkbox" id="social" onchange="trackConsentChange('social', this.checked)">
+                                <label for="social" class="toggle-label">Toggle</label>
+                            </div>
+                        </div>
+                        <div class="category-details">
+                            <p><strong>Purpose:</strong> Social sharing, login integration, social analytics</p>
+                            <p><strong>Data collected:</strong> Social media interactions, profile information</p>
+                            <p><strong>Retention:</strong> As per social platform policies</p>
+                            <p><strong>Third parties:</strong> Facebook, Twitter, LinkedIn</p>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" onclick="acceptAllConsent()" class="btn btn-primary">Accept All</button>
+                        <button type="button" onclick="rejectAllConsent()" class="btn btn-secondary">Reject All</button>
+                        <button type="button" onclick="saveConsentPreferences()" class="btn btn-primary">Save Preferences</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Data Rights -->
+            <section class="data-rights">
+                <h2>Your Data Rights</h2>
+                <div class="rights-grid">
+                    <div class="rights-card">
+                        <h3>🔍 Access Your Data</h3>
+                        <p>Request a copy of all personal data we have about you</p>
+                        <button onclick="requestDataAccess()" class="btn btn-secondary">Request Data</button>
+                    </div>
+                    <div class="rights-card">
+                        <h3>✏️ Correct Your Data</h3>
+                        <p>Update or correct any inaccurate personal information</p>
+                        <button onclick="requestDataCorrection()" class="btn btn-secondary">Request Correction</button>
+                    </div>
+                    <div class="rights-card">
+                        <h3>🗑️ Delete Your Data</h3>
+                        <p>Request deletion of your personal data (right to be forgotten)</p>
+                        <button onclick="requestDataDeletion()" class="btn btn-secondary">Request Deletion</button>
+                    </div>
+                    <div class="rights-card">
+                        <h3>📤 Data Portability</h3>
+                        <p>Export your data in a machine-readable format</p>
+                        <button onclick="requestDataPortability()" class="btn btn-secondary">Export Data</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Consent Testing -->
+            <section class="testing-controls">
+                <h2>Consent Testing Controls</h2>
+                <div class="testing-buttons">
+                    <button onclick="simulateGDPRCompliance()" class="btn btn-secondary">Test GDPR Compliance</button>
+                    <button onclick="simulateCCPACompliance()" class="btn btn-secondary">Test CCPA Compliance</button>
+                    <button onclick="simulateConsentWithdrawal()" class="btn btn-secondary">Test Consent Withdrawal</button>
+                    <button onclick="simulateConsentExpiry()" class="btn btn-secondary">Test Consent Expiry</button>
+                    <button onclick="resetAllConsent()" class="btn btn-tertiary">Reset All Consent</button>
+                </div>
+            </section>
+
+            <!-- Privacy Policy Links -->
+            <section class="privacy-links">
+                <h2>Additional Information</h2>
+                <div class="links-list">
+                    <a href="#" onclick="trackPrivacyLinkClick('privacy_policy')" class="privacy-link">Privacy Policy</a>
+                    <a href="#" onclick="trackPrivacyLinkClick('cookie_policy')" class="privacy-link">Cookie Policy</a>
+                    <a href="#" onclick="trackPrivacyLinkClick('terms_of_service')" class="privacy-link">Terms of Service</a>
+                    <a href="#" onclick="trackPrivacyLinkClick('data_processing')" class="privacy-link">Data Processing Agreement</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Consent History Modal -->
+    <div id="history-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('history-modal')">&times;</span>
+            <h2>Consent History</h2>
+            <div id="consent-history-content">
+                <!-- History will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Request Modal -->
+    <div id="data-request-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('data-request-modal')">&times;</span>
+            <h2 id="request-modal-title">Data Request</h2>
+            <div id="data-request-content">
+                <form id="data-request-form">
+                    <div class="form-group">
+                        <label for="request-email">Email Address:</label>
+                        <input type="email" id="request-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="request-reason">Reason for Request:</label>
+                        <textarea id="request-reason" rows="4"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" onclick="submitDataRequest()" class="btn btn-primary">Submit Request</button>
+                        <button type="button" onclick="closeModal('data-request-modal')" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tealium Test Site - Privacy & Consent</p>
+            <div class="debug-info">
+                <button onclick="showDebugInfo()" class="btn btn-small">Show Debug Info</button>
+                <button onclick="showConsentData()" class="btn btn-small">Show Consent Data</button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="tracking.js"></script>
+    <script>
+        // Consent management functionality
+        
+        let currentDataRequestType = '';
+        
+        // Initialize consent status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadConsentStatus();
+            updateConsentUI();
+        });
+        
+        function loadConsentStatus() {
+            const consentData = JSON.parse(localStorage.getItem('tealium_consent') || '{}');
+            
+            if (consentData.status) {
+                document.getElementById('status-text').textContent = 
+                    consentData.status === 'accept_all' ? 'All Accepted' : 
+                    consentData.status === 'reject_all' ? 'All Rejected' : 'Custom';
+                
+                if (consentData.timestamp) {
+                    document.getElementById('last-updated').textContent = 
+                        new Date(consentData.timestamp).toLocaleString();
+                }
+                
+                // Set individual checkboxes
+                if (consentData.categories) {
+                    consentData.categories.forEach(category => {
+                        const checkbox = document.getElementById(category);
+                        if (checkbox) checkbox.checked = true;
+                    });
+                }
+            }
+        }
+        
+        function updateConsentUI() {
+            // This would typically update UI elements based on consent status
+            console.log('Consent UI updated');
+        }
+        
+        function trackConsentChange(category, isEnabled) {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('consent_category_change', 'privacy', {
+                    consent_category: category,
+                    consent_status: isEnabled ? 'granted' : 'denied',
+                    change_method: 'manual_toggle'
+                });
+            }
+            
+            console.log(`Consent changed: ${category} = ${isEnabled}`);
+        }
+        
+        function acceptAllConsent() {
+            // Check all optional categories
+            const optionalCategories = ['analytics', 'marketing', 'personalization', 'social'];
+            optionalCategories.forEach(category => {
+                const checkbox = document.getElementById(category);
+                if (checkbox) checkbox.checked = true;
+            });
+            
+            // Save consent
+            saveConsentData('accept_all', optionalCategories.concat(['essential']));
+            
+            // Track event
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('consent_accept_all', 'privacy', {
+                    consent_method: 'accept_all_button',
+                    categories_accepted: optionalCategories.concat(['essential']).join(',')
+                });
+            }
+            
+            alert('All consent preferences have been accepted!');
+            updateConsentUI();
+        }
+        
+        function rejectAllConsent() {
+            // Uncheck all optional categories
+            const optionalCategories = ['analytics', 'marketing', 'personalization', 'social'];
+            optionalCategories.forEach(category => {
+                const checkbox = document.getElementById(category);
+                if (checkbox) checkbox.checked = false;
+            });
+            
+            // Save consent (only essential)
+            saveConsentData('reject_all', ['essential']);
+            
+            // Track event
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('consent_reject_all', 'privacy', {
+                    consent_method: 'reject_all_button',
+                    categories_accepted: 'essential'
+                });
+            }
+            
+            alert('Optional data collection has been disabled. Only essential cookies remain active.');
+            updateConsentUI();
+        }
+        
+        function saveConsentPreferences() {
+            const acceptedCategories = ['essential']; // Always include essential
+            const optionalCategories = ['analytics', 'marketing', 'personalization', 'social'];
+            
+            optionalCategories.forEach(category => {
+                const checkbox = document.getElementById(category);
+                if (checkbox && checkbox.checked) {
+                    acceptedCategories.push(category);
+                }
+            });
+            
+            // Save consent
+            saveConsentData('custom', acceptedCategories);
+            
+            // Track event
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('consent_save_preferences', 'privacy', {
+                    consent_method: 'save_preferences_button',
+                    categories_accepted: acceptedCategories.join(','),
+                    total_categories: acceptedCategories.length.toString()
+                });
+            }
+            
+            alert('Your consent preferences have been saved!');
+            updateConsentUI();
+        }
+        
+        function saveConsentData(status, categories) {
+            const consentData = {
+                status: status,
+                categories: categories,
+                timestamp: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            localStorage.setItem('tealium_consent', JSON.stringify(consentData));
+            
+            // Update status display
+            loadConsentStatus();
+            
+            // Save to consent history
+            saveConsentHistory(consentData);
+        }
+        
+        function saveConsentHistory(consentData) {
+            let history = JSON.parse(localStorage.getItem('consent_history') || '[]');
+            
+            history.unshift({
+                ...consentData,
+                id: Date.now().toString()
+            });
+            
+            // Keep last 10 entries
+            history = history.slice(0, 10);
+            
+            localStorage.setItem('consent_history', JSON.stringify(history));
+        }
+        
+        // Data Rights Functions
+        function requestDataAccess() {
+            currentDataRequestType = 'access';
+            showDataRequestModal('Request Data Access', 'Request a copy of your personal data');
+        }
+        
+        function requestDataCorrection() {
+            currentDataRequestType = 'correction';
+            showDataRequestModal('Request Data Correction', 'Request correction of your personal data');
+        }
+        
+        function requestDataDeletion() {
+            currentDataRequestType = 'deletion';
+            showDataRequestModal('Request Data Deletion', 'Request deletion of your personal data');
+        }
+        
+        function requestDataPortability() {
+            currentDataRequestType = 'portability';
+            showDataRequestModal('Request Data Export', 'Request export of your personal data');
+        }
+        
+        function showDataRequestModal(title, description) {
+            document.getElementById('request-modal-title').textContent = title;
+            document.getElementById('data-request-modal').style.display = 'block';
+            
+            // Track modal view
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('data_request_modal_view', 'privacy', {
+                    request_type: currentDataRequestType
+                });
+            }
+        }
+        
+        function submitDataRequest() {
+            const email = document.getElementById('request-email').value;
+            const reason = document.getElementById('request-reason').value;
+            
+            if (!email) {
+                alert('Please enter your email address');
+                return;
+            }
+            
+            // Track data request
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('data_request_submitted', 'privacy', {
+                    request_type: currentDataRequestType,
+                    request_email: email,
+                    has_reason: reason ? '1' : '0'
+                });
+            }
+            
+            // Simulate request submission
+            alert(`${currentDataRequestType.charAt(0).toUpperCase() + currentDataRequestType.slice(1)} request submitted! You will receive confirmation at ${email}`);
+            
+            closeModal('data-request-modal');
+            document.getElementById('data-request-form').reset();
+        }
+        
+        // Consent History
+        function showConsentHistory() {
+            const history = JSON.parse(localStorage.getItem('consent_history') || '[]');
+            const historyContent = document.getElementById('consent-history-content');
+            
+            if (history.length === 0) {
+                historyContent.innerHTML = '<p>No consent history available.</p>';
+            } else {
+                historyContent.innerHTML = history.map(entry => `
+                    <div class="history-entry">
+                        <div class="history-header">
+                            <h4>Status: ${entry.status}</h4>
+                            <span class="history-date">${new Date(entry.timestamp).toLocaleString()}</span>
+                        </div>
+                        <div class="history-details">
+                            <p><strong>Categories:</strong> ${entry.categories.join(', ')}</p>
+                            <p><strong>Version:</strong> ${entry.version}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('history-modal').style.display = 'block';
+            
+            // Track history view
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('consent_history_view', 'privacy', {
+                    history_entries: history.length.toString()
+                });
+            }
+        }
+        
+        function downloadConsentData() {
+            const consentData = JSON.parse(localStorage.getItem('tealium_consent') || '{}');
+            const history = JSON.parse(localStorage.getItem('consent_history') || '[]');
+            
+            const data = {
+                current_consent: consentData,
+                consent_history: history,
+                export_timestamp: new Date().toISOString()
+            };
+            
+            // Create download
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'consent-data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            // Track download
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('consent_data_download', 'privacy', {
+                    download_format: 'json'
+                });
+            }
+        }
+        
+        // Testing Functions
+        function simulateGDPRCompliance() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('gdpr_compliance_test', 'privacy', {
+                    regulation: 'GDPR',
+                    test_type: 'compliance_simulation'
+                });
+            }
+            alert('GDPR compliance test completed - Check console for tracking events');
+        }
+        
+        function simulateCCPACompliance() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('ccpa_compliance_test', 'privacy', {
+                    regulation: 'CCPA',
+                    test_type: 'compliance_simulation'
+                });
+            }
+            alert('CCPA compliance test completed - Check console for tracking events');
+        }
+        
+        function simulateConsentWithdrawal() {
+            // Simulate consent withdrawal
+            saveConsentData('withdrawn', ['essential']);
+            
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('consent_withdrawal', 'privacy', {
+                    withdrawal_method: 'simulation',
+                    previous_status: 'accepted'
+                });
+            }
+            
+            alert('Consent withdrawal simulated - All optional categories disabled');
+            loadConsentStatus();
+        }
+        
+        function simulateConsentExpiry() {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('consent_expiry', 'privacy', {
+                    expiry_reason: 'time_based',
+                    days_since_consent: '365'
+                });
+            }
+            alert('Consent expiry simulation completed - Check console for tracking events');
+        }
+        
+        function resetAllConsent() {
+            if (confirm('Are you sure you want to reset all consent data? This will clear your consent history.')) {
+                localStorage.removeItem('tealium_consent');
+                localStorage.removeItem('consent_history');
+                
+                // Reset UI
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(#essential)');
+                checkboxes.forEach(checkbox => checkbox.checked = false);
+                
+                document.getElementById('status-text').textContent = 'Not Set';
+                document.getElementById('last-updated').textContent = 'Never';
+                
+                if (window.TealiumTracker) {
+                    window.TealiumTracker.trackCustomEvent('consent_reset', 'privacy', {
+                        reset_method: 'manual'
+                    });
+                }
+                
+                alert('All consent data has been reset!');
+            }
+        }
+        
+        function trackPrivacyLinkClick(linkType) {
+            if (window.TealiumTracker) {
+                window.TealiumTracker.trackCustomEvent('privacy_link_click', 'privacy', {
+                    link_type: linkType,
+                    page_section: 'privacy_links'
+                });
+            }
+            
+            alert(`${linkType.replace('_', ' ').toUpperCase()} link clicked - Event tracked!`);
+        }
+        
+        // Utility Functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        function showConsentData() {
+            const consentData = JSON.parse(localStorage.getItem('tealium_consent') || '{}');
+            alert('Current Consent Data:\n' + JSON.stringify(consentData, null, 2));
+        }
+        
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        };
+    </script>
+</body>
+</html> 
