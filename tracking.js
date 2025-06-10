@@ -76,15 +76,29 @@ function setupAdvancedTracking() {
 
 // Setup all event listeners
 function setupEventListeners() {
+    console.log('Setting up event listeners...');
+    
+    // Track page view immediately when setup is complete
+    setTimeout(() => {
+        trackPageView({ 
+            page_load_trigger: 'automatic',
+            setup_complete: 'true'
+        });
+    }, 1000);
+    
     // Hero CTA button
     const heroCta = document.getElementById('hero-cta');
     if (heroCta) {
         heroCta.addEventListener('click', function() {
+            console.log('Hero CTA clicked');
             trackCustomEvent('cta_click', 'hero_section', {
                 cta_text: this.textContent,
                 cta_position: 'hero'
             });
         });
+        console.log('Hero CTA listener added');
+    } else {
+        console.log('Hero CTA element not found');
     }
     
     // Newsletter form
@@ -92,6 +106,7 @@ function setupEventListeners() {
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('Newsletter form submitted');
             handleNewsletterSubmission();
         });
         
@@ -99,20 +114,54 @@ function setupEventListeners() {
         const emailField = document.getElementById('email');
         if (emailField) {
             emailField.addEventListener('focus', function() {
+                console.log('Email field focused');
                 trackCustomEvent('form_field_focus', 'newsletter', {
                     field_name: 'email'
                 });
             });
         }
+        console.log('Newsletter form listeners added');
+    } else {
+        console.log('Newsletter form not found');
     }
     
-    // Navigation link tracking
-    const navLinks = document.querySelectorAll('.nav-link');
+    // Navigation link tracking - with better selector
+    const navLinks = document.querySelectorAll('nav a, .nav-link, .navbar a');
+    console.log('Found', navLinks.length, 'navigation links');
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function(e) {
+            console.log('Navigation link clicked:', this.textContent);
             trackCustomEvent('navigation_click', 'header', {
                 link_text: this.textContent,
                 link_url: this.href
+            });
+        });
+    });
+    
+    // Add click tracking to ALL buttons for testing
+    const allButtons = document.querySelectorAll('button, .btn, input[type="button"], input[type="submit"]');
+    console.log('Found', allButtons.length, 'buttons');
+    allButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            console.log('Button clicked:', this.textContent || this.value || this.id);
+            trackCustomEvent('button_click', 'ui_interaction', {
+                button_text: this.textContent || this.value || 'unknown',
+                button_id: this.id || 'no_id',
+                button_class: this.className || 'no_class'
+            });
+        });
+    });
+    
+    // Add click tracking to ALL links for testing
+    const allLinks = document.querySelectorAll('a');
+    console.log('Found', allLinks.length, 'links');
+    allLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            console.log('Link clicked:', this.textContent, this.href);
+            trackCustomEvent('link_click', 'navigation', {
+                link_text: this.textContent || 'no_text',
+                link_url: this.href || 'no_url',
+                link_id: this.id || 'no_id'
             });
         });
     });
@@ -122,6 +171,8 @@ function setupEventListeners() {
     
     // Exit intent tracking
     setupExitIntentTracking();
+    
+    console.log('Event listeners setup complete');
 }
 
 // Custom event tracking function
@@ -530,15 +581,34 @@ function testEventFiring() {
     console.log('Utag available:', typeof window.utag !== 'undefined');
     console.log('Utag.link available:', typeof window.utag?.link === 'function');
     console.log('Utag.view available:', typeof window.utag?.view === 'function');
+    console.log('Utag object:', window.utag);
     
     if (typeof window.utag !== 'undefined') {
-        console.log('Firing test link event...');
+        console.log('🔥 Firing test utag.link event...');
         trackCustomEvent('debug_test_event', 'testing', { test_source: 'manual' });
         
-        console.log('Firing test page view...');
+        console.log('🔥 Firing test utag.view event...');
         trackPageView({ test_pageview: 'manual' });
+        
+        // Test direct utag calls
+        console.log('🔥 Testing direct utag.link call...');
+        window.utag.link({
+            tealium_event: 'direct_test_link',
+            test_type: 'direct_utag_call',
+            timestamp: new Date().toISOString()
+        });
+        
+        console.log('🔥 Testing direct utag.view call...');
+        window.utag.view({
+            tealium_event: 'direct_test_view',
+            test_type: 'direct_utag_call',
+            timestamp: new Date().toISOString()
+        });
+        
+        console.log('✅ All test events fired! Check console for "trigger: link" and "trigger: view" messages');
+        console.log('💡 If you don\'t see "trigger" messages, run: document.cookie="utagdb=true"; then refresh');
     } else {
-        console.error('Utag is not loaded! Make sure you are serving the site via HTTP/HTTPS');
+        console.error('❌ Utag is not loaded! Make sure you are serving the site via HTTP/HTTPS');
     }
 }
 
