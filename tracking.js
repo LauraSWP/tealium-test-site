@@ -191,7 +191,7 @@ function trackCustomEvent(eventName, category, additionalData = {}) {
     const eventData = {
         tealium_event: eventName,
         tealium_account: 'success-laura-solanes',
-        tealium_profile: 'dog-food',
+        tealium_profile: 'main',
         tealium_environment: 'prod',
         event_category: category,
         event_timestamp: new Date().toISOString(),
@@ -206,7 +206,14 @@ function trackCustomEvent(eventName, category, additionalData = {}) {
     
     console.log('Tracking event:', eventName, eventData);
     
+    // Validate required parameters
+    if (!validateEventData(eventData)) {
+        console.error('❌ Event validation failed for:', eventName);
+        return;
+    }
+    
     // Send event using utag.link
+    console.log('🚀 Firing utag.link with validated data');
     window.utag.link(eventData);
 }
 
@@ -226,7 +233,7 @@ function trackPageView(additionalData = {}) {
     const pageData = {
         tealium_event: 'page_view',
         tealium_account: 'success-laura-solanes',
-        tealium_profile: 'dog-food',
+        tealium_profile: 'main',
         tealium_environment: 'prod',
         page_url: window.location.href,
         page_title: document.title,
@@ -239,6 +246,15 @@ function trackPageView(additionalData = {}) {
     };
     
     console.log('Tracking page view:', pageData);
+    
+    // Validate required parameters
+    if (!validateEventData(pageData)) {
+        console.error('❌ Page view validation failed');
+        return;
+    }
+    
+    // Send page view using utag.view
+    console.log('🚀 Firing utag.view with validated data');
     window.utag.view(pageData);
 }
 
@@ -575,6 +591,20 @@ window.addEventListener('load', function() {
     }, 1000);
 });
 
+// Validate event data has required Tealium parameters
+function validateEventData(eventData) {
+    const requiredParams = ['tealium_event', 'tealium_account', 'tealium_profile'];
+    const missing = requiredParams.filter(param => !eventData[param]);
+    
+    if (missing.length > 0) {
+        console.error('❌ Missing required Tealium parameters:', missing);
+        return false;
+    }
+    
+    console.log('✅ Event data validation passed');
+    return true;
+}
+
 // Test function to manually fire events for debugging
 function testEventFiring() {
     console.log('=== TESTING EVENT FIRING ===');
@@ -594,6 +624,9 @@ function testEventFiring() {
         console.log('🔥 Testing direct utag.link call...');
         window.utag.link({
             tealium_event: 'direct_test_link',
+            tealium_account: 'success-laura-solanes',
+            tealium_profile: 'main',
+            tealium_environment: 'prod',
             test_type: 'direct_utag_call',
             timestamp: new Date().toISOString()
         });
@@ -601,6 +634,9 @@ function testEventFiring() {
         console.log('🔥 Testing direct utag.view call...');
         window.utag.view({
             tealium_event: 'direct_test_view',
+            tealium_account: 'success-laura-solanes',
+            tealium_profile: 'main',
+            tealium_environment: 'prod',
             test_type: 'direct_utag_call',
             timestamp: new Date().toISOString()
         });
@@ -629,7 +665,8 @@ window.TealiumTracker = {
     clearDataLayer,
     getSessionId,
     getVisitorId,
-    testEventFiring
+    testEventFiring,
+    validateEventData
 };
 
 console.log('Tealium tracking functions initialized'); 
